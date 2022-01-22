@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
-public class Persistent implements Repository {
+public class ApiaryAccountPersistent implements ApiaryAccountRepository {
 
   private static final String NO_EVENT_ACCOUNTS_FOUND = "No apiary accounts found";
   private static final String EXCEPTION_MESSAGE = "Exception in apiary account persistent";

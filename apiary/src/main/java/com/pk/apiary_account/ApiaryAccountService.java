@@ -8,10 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 @org.springframework.stereotype.Service
 @AllArgsConstructor
 @Slf4j
-public class Service {
-  private Repository apiaryAccountRepository;
-  private com.pk.apiary.Service apiaryService;
-  private com.pk.account.Service accountService;
+public class ApiaryAccountService {
+  private ApiaryAccountRepository apiaryAccountRepository;
+  private com.pk.apiary.ApiaryService apiaryService;
+  private com.pk.account.AccountService accountService;
 
   public List<ApiaryAccount> getAll() {
     return apiaryAccountRepository.getAll();

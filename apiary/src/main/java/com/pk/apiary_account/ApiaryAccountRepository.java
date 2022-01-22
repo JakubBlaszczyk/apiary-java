@@ -2,7 +2,7 @@ package com.pk.apiary_account;
 
 import java.util.List;
 
-public interface Repository {
+public interface ApiaryAccountRepository {
 
   List<ApiaryAccount> getAll();
 
