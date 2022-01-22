@@ -1,8 +1,8 @@
 
-INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGES) VALUES ('admin', 'admin', 'admin@admin.com', 'admin');
-INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGES) VALUES ('user1', 'user1', 'user1@user1.com', 'worker');
-INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGES) VALUES ('user2', 'user2', 'user2@user2.com', 'beekeeper');
-INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGES) VALUES ('user3', 'user3', 'user3@user3.com', 'worker');
+INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE) VALUES ('admin', 'admin', 'admin@admin.com', 'admin');
+INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE) VALUES ('user1', 'user1', 'user1@user1.com', 'worker');
+INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE) VALUES ('user2', 'user2', 'user2@user2.com', 'beekeeper');
+INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE) VALUES ('user3', 'user3', 'user3@user3.com', 'worker');
 INSERT INTO APIARY (LOCALIZATION, INFORMATION) VALUES ('Krakow', 'Some interesting apiary');
 INSERT INTO APIARY (INFORMATION) VALUES ('This one is only for information');
 INSERT INTO APIARY (LOCALIZATION) VALUES ('Lubzina');
