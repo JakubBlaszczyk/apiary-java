@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class Persistent implements Repository {
 
-  private static final String EXCEPTION_MESSAGE = "Exception in account persistent";
+  private static final String EXCEPTION_MESSAGE = "Exception in apiary persistent";
   private JdbcTemplate jdbcTemplate;
 
   @Override
@@ -38,7 +38,7 @@ public class Persistent implements Repository {
   @Override
   public Apiary findById(Integer id) {
     try {
-      List<Apiary> accounts = jdbcTemplate.query(
+      List<Apiary> apiaries = jdbcTemplate.query(
           "SELECT * FROM APIARY WHERE ID = ?",
           (rs, rowNum) -> new Apiary(
               rs.getInt(1),
@@ -46,14 +46,14 @@ public class Persistent implements Repository {
               rs.getString(3)),
           id);
 
-      if (accounts.isEmpty()) {
-        log.error("No accounts found");
+      if (apiaries.isEmpty()) {
+        log.error("No apiaries found");
         return null;
-      } else if (accounts.size() > 1) {
-        log.error("Found more than one account");
+      } else if (apiaries.size() > 1) {
+        log.error("Found more than one apiary");
         return null;
       }
-      return accounts.get(0);
+      return apiaries.get(0);
     } catch (Exception e) {
       log.error(EXCEPTION_MESSAGE, e);
       return null;
