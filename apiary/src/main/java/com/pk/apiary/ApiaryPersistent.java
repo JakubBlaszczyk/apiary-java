@@ -5,7 +5,7 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.List;
 
-import com.pk.apiary.request.Create;
+import com.pk.apiary.request.ApiaryCreate;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
-public class Persistent implements Repository {
+public class ApiaryPersistent implements ApiaryRepository {
 
   private static final String EXCEPTION_MESSAGE = "Exception in apiary persistent";
   private JdbcTemplate jdbcTemplate;
@@ -85,7 +85,7 @@ public class Persistent implements Repository {
   }
 
   @Override
-  public Integer save(Create account) {
+  public Integer save(ApiaryCreate account) {
     String statement = "INSERT INTO APIARY(LOCALIZATION, INFORMATION) VALUES(?, ?)";
     KeyHolder keyHolder = new GeneratedKeyHolder();
     try {

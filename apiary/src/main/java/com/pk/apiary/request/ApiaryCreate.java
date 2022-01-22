@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Create {
+public class ApiaryCreate {
   String localization;
   String information;
 }

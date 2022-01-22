@@ -2,7 +2,7 @@ package com.pk.apiary;
 
 import java.util.List;
 
-import com.pk.apiary.request.Create;
+import com.pk.apiary.request.ApiaryCreate;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @org.springframework.stereotype.Service
 @AllArgsConstructor
 @Slf4j
-public class Service {
-  private Repository apiaryRepository;
+public class ApiaryService {
+  private ApiaryRepository apiaryRepository;
 
   public List<Apiary> getAll() {
     return apiaryRepository.getAll();
@@ -43,7 +43,7 @@ public class Service {
     return apiaryRepository.update(apiary);
   }
 
-  public Integer save(Create account) {
+  public Integer save(ApiaryCreate account) {
     return apiaryRepository.save(account);
   }
 }

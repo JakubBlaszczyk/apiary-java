@@ -2,9 +2,9 @@ package com.pk.apiary;
 
 import java.util.List;
 
-import com.pk.apiary.request.Create;
+import com.pk.apiary.request.ApiaryCreate;
 
-public interface Repository {
+public interface ApiaryRepository {
 
   List<Apiary> getAll();
 
@@ -14,5 +14,5 @@ public interface Repository {
 
   Boolean update(Apiary apiary);
 
-  Integer save(Create apiary);
+  Integer save(ApiaryCreate apiary);
 }
