@@ -6,6 +6,8 @@ INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE)
 VALUES ('user2', 'user2', 'user2@user2.com', 'beekeeper');
 INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE)
 VALUES ('user3', 'user3', 'user3@user3.com', 'worker');
+INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE)
+VALUES ('user4', 'user4', 'user4@user4.com', 'worker');
 INSERT INTO APIARY (LOCALIZATION, INFORMATION)
 VALUES ('Krakow', 'Some interesting apiary');
 INSERT INTO APIARY (INFORMATION)

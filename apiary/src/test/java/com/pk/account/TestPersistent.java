@@ -63,23 +63,31 @@ public class TestPersistent {
 
   @Test
   @Order(2)
+  public void testFindByLogin() {
+    assertNotNull(this.accountRepository.findByLogin("admin"));
+    assertNotNull(this.accountRepository.findByLogin("user1"));
+    assertNull(this.accountRepository.findByLogin("deadbeef"));
+  }
+
+  @Test
+  @Order(3)
   public void testSave() {
     assertEquals(this.accountRepository.getAll().size() + 1, this.accountRepository
         .save(new Create("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
   }
 
   @Test
-  @Order(3)
+  @Order(4)
   public void testUpdate() {
     assertTrue(this.accountRepository.update(new Update(3, "updated", "updated", "updated@updated.com")));
     assertEquals("updated", this.accountRepository.findById(3).getLogin());
   }
 
   @Test
-  @Order(4)
+  @Order(5)
   public void testDeleteById() {
     // need to delete id without any foreign keys restrictions
-    assertTrue(this.accountRepository.deleteById(4));
+    assertTrue(this.accountRepository.deleteById(5));
     assertFalse(this.accountRepository.deleteById(999));
   }
 }

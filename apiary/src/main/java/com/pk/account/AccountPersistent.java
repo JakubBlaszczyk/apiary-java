@@ -5,8 +5,8 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.List;
 
-import com.pk.account.request.Create;
-import com.pk.account.request.Update;
+import com.pk.account.request.CreateAccount;
+import com.pk.account.request.UpdateAccount;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
-public class Persistent implements Repository {
+public class AccountPersistent implements AccountRepository {
 
   private static final String EXCEPTION_MESSAGE = "Exception in account persistent";
   private JdbcTemplate jdbcTemplate;
@@ -35,6 +35,33 @@ public class Persistent implements Repository {
     } catch (Exception e) {
       log.error(EXCEPTION_MESSAGE, e);
       return Collections.emptyList();
+    }
+  }
+
+  @Override
+  public Account findByLogin(String login) {
+    try {
+      List<Account> accounts = jdbcTemplate.query(
+          "SELECT * FROM ACCOUNT WHERE LOGIN = ?",
+          (rs, rowNum) -> new Account(
+              rs.getInt(1),
+              rs.getString(2),
+              rs.getString(3),
+              rs.getString(4),
+              Privilege.stringToPrivilege(rs.getString(5))),
+          login);
+
+      if (accounts.isEmpty()) {
+        log.error("No accounts found");
+        return null;
+      } else if (accounts.size() > 1) {
+        log.error("Found more than one account");
+        return null;
+      }
+      return accounts.get(0);
+    } catch (Exception e) {
+      log.error(EXCEPTION_MESSAGE, e);
+      return null;
     }
   }
 
@@ -77,7 +104,7 @@ public class Persistent implements Repository {
   }
 
   @Override
-  public Boolean update(Update account) {
+  public Boolean update(UpdateAccount account) {
     try {
       return jdbcTemplate.update("UPDATE ACCOUNT SET LOGIN = ?, PASSWORD = ?, EMAIL = ? WHERE ID = ?",
           account.getLogin(),
@@ -91,7 +118,7 @@ public class Persistent implements Repository {
   }
 
   @Override
-  public Integer save(Create account) {
+  public Integer save(CreateAccount account) {
     String statement = "INSERT INTO ACCOUNT(LOGIN, PASSWORD, EMAIL, PRIVILEGE) VALUES(?, ?, ?, ?)";
     KeyHolder keyHolder = new GeneratedKeyHolder();
     try {

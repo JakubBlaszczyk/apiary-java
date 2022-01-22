@@ -6,9 +6,9 @@ import javax.validation.constraints.NotNull;
 
 import com.pk.account.Privilege;
 
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 public class Create {
 
   @NotNull

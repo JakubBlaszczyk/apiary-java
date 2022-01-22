@@ -64,13 +64,21 @@ public class TestService {
 
   @Test
   @Order(2)
+  public void testFindByLogin() {
+    assertNotNull(this.accountService.findByLogin("admin"));
+    assertNotNull(this.accountService.findByLogin("user1"));
+    assertNull(this.accountService.findByLogin("deadbeef"));
+  }
+
+  @Test
+  @Order(3)
   public void testSave() {
     assertEquals(this.accountService.getAll().size() + 1, this.accountService
         .save(new Create("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
   }
 
   @Test
-  @Order(3)
+  @Order(4)
   public void testUpdate() {
     Account checker = this.accountService.findById(3);
     assertTrue(this.accountService.update(new Update(3, "updated", null, null)));
@@ -79,10 +87,10 @@ public class TestService {
   }
 
   @Test
-  @Order(4)
+  @Order(5)
   public void testDeleteById() {
     // need to delete id without any foreign keys restrictions
-    assertTrue(this.accountService.deleteById(4));
+    assertTrue(this.accountService.deleteById(5));
     assertFalse(this.accountService.deleteById(999));
   }
 }

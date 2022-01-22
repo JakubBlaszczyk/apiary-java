@@ -1,0 +1,137 @@
+ .u-section-1 {
+  min-height: 951px;
+}
+
+.u-section-1 .u-group-1 {
+  min-height: 628px;
+  margin-top: 323px;
+  margin-bottom: 0;
+}
+
+.u-section-1 .u-container-layout-1 {
+  padding: 0;
+}
+
+.u-section-1 .u-text-1 {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2.25rem;
+  margin: 0 547px 0 auto;
+}
+
+.u-section-1 .u-text-2 {
+  text-align: left;
+  font-style: normal;
+  font-weight: 700;
+  margin: 48px 803px 0 291px;
+}
+
+.u-section-1 .u-text-3 {
+  text-align: left;
+  font-style: normal;
+  font-weight: 700;
+  margin: 33px 803px 0 291px;
+}
+
+.u-section-1 .u-form-1 {
+  height: 260px;
+  margin: -132px 326px 0 466px;
+}
+
+.u-section-1 .u-form-group-2 {
+  margin-left: 0;
+}
+
+.u-section-1 .u-btn-1 {
+  border-style: solid;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  font-weight: 700;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-container-layout-1 {
+    padding-top: 26px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-right: 451px;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-right: 703px;
+    margin-left: 191px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-right: 703px;
+    margin-left: 191px;
+  }
+
+  .u-section-1 .u-form-1 {
+    margin-right: 226px;
+    margin-left: 366px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-text-1 {
+    margin-right: 345px;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-right: 593px;
+    margin-left: 81px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-right: 593px;
+    margin-left: 81px;
+  }
+
+  .u-section-1 .u-form-1 {
+    margin-right: 116px;
+    margin-left: 256px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-text-1 {
+    margin-right: 259px;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-right: 494px;
+    margin-left: 0;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-right: 494px;
+    margin-left: 0;
+  }
+
+  .u-section-1 .u-form-1 {
+    margin-right: 26px;
+    margin-left: 166px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-text-1 {
+    font-size: 1.5rem;
+    margin-right: 163px;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-right: 294px;
+  }
+
+  .u-section-1 .u-text-3 {
+    margin-right: 294px;
+  }
+
+  .u-section-1 .u-form-1 {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
