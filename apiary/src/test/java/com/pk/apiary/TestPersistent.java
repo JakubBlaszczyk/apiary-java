@@ -1,4 +1,4 @@
-package com.pk.account;
+package com.pk.apiary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,8 +12,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.pk.account.request.Create;
-import com.pk.account.request.Update;
+import com.pk.apiary.request.Create;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +22,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
-public class Services {
+public class TestPersistent {
   private DataSource dataSource;
-  private Service accountService;
+  private Repository apiaryRepository;
 
   @BeforeEach
   public void initialization() {
@@ -34,8 +33,7 @@ public class Services {
         .addScripts("schema.sql", "data.sql")
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
-    com.pk.account.Repository accountRepository = new Persistent(jdbcTemplate);
-    this.accountService = new Service(accountRepository);
+    this.apiaryRepository = new Persistent(jdbcTemplate);
   }
 
   @AfterEach
@@ -47,42 +45,40 @@ public class Services {
   @Test
   @Order(0)
   public void testGetAll() {
-    List<Account> template = Collections.emptyList();
-    this.accountService.getAll().stream().forEach((e) -> {
+    List<Apiary> template = Collections.emptyList();
+    this.apiaryRepository.getAll().stream().forEach((e) -> {
       System.out.println(e.getId());
     });
-    assertNotEquals(template, this.accountService.getAll());
+    assertNotEquals(template, this.apiaryRepository.getAll());
   }
 
   @Test
   @Order(1)
   public void testFindById() {
-    assertNotNull(this.accountService.findById(1));
-    assertNotNull(this.accountService.findById(2));
-    assertNull(this.accountService.findById(999));
+    assertNotNull(this.apiaryRepository.findById(1));
+    assertNotNull(this.apiaryRepository.findById(2));
+    assertNull(this.apiaryRepository.findById(999));
   }
 
   @Test
   @Order(2)
   public void testSave() {
-    assertEquals(this.accountService.getAll().size() + 1, this.accountService
-        .save(new Create("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
+    assertEquals(this.apiaryRepository.getAll().size() + 1, this.apiaryRepository
+        .save(new Create("test", "test")));
   }
 
   @Test
   @Order(3)
   public void testUpdate() {
-    Account checker = this.accountService.findById(3);
-    assertTrue(this.accountService.update(new Update(3, "updated", null, null)));
-    assertEquals("updated", this.accountService.findById(3).getLogin());
-    assertEquals(checker.getEmail(), this.accountService.findById(3).getEmail());
+    assertTrue(this.apiaryRepository.update(new Apiary(2, "updated", "updated")));
+    assertEquals("updated", this.apiaryRepository.findById(3).getInformation());
   }
 
   @Test
   @Order(4)
   public void testDeleteById() {
-    // need to delete id without any foreign keys
-    assertTrue(this.accountService.deleteById(4));
-    assertFalse(this.accountService.deleteById(999));
+    // need to delete id without any foreign keys restrictions
+    assertTrue(this.apiaryRepository.deleteById(4));
+    assertFalse(this.apiaryRepository.deleteById(999));
   }
 }

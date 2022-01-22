@@ -22,7 +22,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
-public class Services {
+public class TestService {
   private DataSource dataSource;
   private Service apiaryService;
 
@@ -80,7 +80,7 @@ public class Services {
   @Test
   @Order(4)
   public void testDeleteById() {
-    // need to delete id without any foreign keys
+    // need to delete id without any foreign keys restrictions
     assertTrue(this.apiaryService.deleteById(4));
     assertFalse(this.apiaryService.deleteById(999));
   }

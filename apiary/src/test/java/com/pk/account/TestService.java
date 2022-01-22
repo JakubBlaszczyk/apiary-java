@@ -1,4 +1,4 @@
-package com.pk.event;
+package com.pk.account;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -7,15 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.pk.event.request.Create;
-import com.pk.event.request.Update;
+import com.pk.account.request.Create;
+import com.pk.account.request.Update;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,9 +23,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
-public class Database {
+public class TestService {
   private DataSource dataSource;
-  private Repository eventRepository;
+  private Service accountService;
 
   @BeforeEach
   public void initialization() {
@@ -36,7 +34,8 @@ public class Database {
         .addScripts("schema.sql", "data.sql")
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
-    this.eventRepository = new Persistent(jdbcTemplate);
+    com.pk.account.Repository accountRepository = new Persistent(jdbcTemplate);
+    this.accountService = new Service(accountRepository);
   }
 
   @AfterEach
@@ -48,40 +47,42 @@ public class Database {
   @Test
   @Order(0)
   public void testGetAll() {
-    List<Event> template = Collections.emptyList();
-    this.eventRepository.getAll().stream().forEach((e) -> {
+    List<Account> template = Collections.emptyList();
+    this.accountService.getAll().stream().forEach((e) -> {
       System.out.println(e.getId());
     });
-    assertNotEquals(template, this.eventRepository.getAll());
+    assertNotEquals(template, this.accountService.getAll());
   }
 
   @Test
   @Order(1)
   public void testFindById() {
-    assertNotNull(this.eventRepository.findById(1));
-    assertNotNull(this.eventRepository.findById(2));
-    assertNull(this.eventRepository.findById(999));
+    assertNotNull(this.accountService.findById(1));
+    assertNotNull(this.accountService.findById(2));
+    assertNull(this.accountService.findById(999));
   }
 
   @Test
   @Order(2)
   public void testSave() {
-    assertEquals(this.eventRepository.getAll().size() + 1, this.eventRepository
-        .save(new Create(1, Timestamp.valueOf(LocalDateTime.now()), null, "Some note")));
+    assertEquals(this.accountService.getAll().size() + 1, this.accountService
+        .save(new Create("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
   }
 
   @Test
   @Order(3)
   public void testUpdate() {
-    assertTrue(this.eventRepository.update(new Update(1, 2, null, null, null)));
-    assertEquals(2, this.eventRepository.findById(1).getIdApiary());
+    Account checker = this.accountService.findById(3);
+    assertTrue(this.accountService.update(new Update(3, "updated", null, null)));
+    assertEquals("updated", this.accountService.findById(3).getLogin());
+    assertEquals(checker.getEmail(), this.accountService.findById(3).getEmail());
   }
 
   @Test
   @Order(4)
   public void testDeleteById() {
     // need to delete id without any foreign keys restrictions
-    assertTrue(this.eventRepository.deleteById(2));
-    assertFalse(this.eventRepository.deleteById(999));
+    assertTrue(this.accountService.deleteById(4));
+    assertFalse(this.accountService.deleteById(999));
   }
 }
