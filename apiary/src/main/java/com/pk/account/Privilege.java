@@ -5,7 +5,7 @@ public enum Privilege {
   BEEKEEPER,
   ADMIN;
 
-  static Privilege stringToPrivilege(String string) {
+  public static Privilege stringToPrivilege(String string) {
     switch (string.toLowerCase()) {
       case "worker":
       case "user":

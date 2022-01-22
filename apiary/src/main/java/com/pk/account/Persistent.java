@@ -5,18 +5,24 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.List;
 
+import com.pk.account.request.Create;
+import com.pk.account.request.Update;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 public class Persistent implements Repository {
 
   private static final String EXCEPTION_MESSAGE = "Exception in account persistent";
   private JdbcTemplate jdbcTemplate;
 
+  @Override
   public List<Account> getAll() {
     try {
       return jdbcTemplate.query("SELECT * FROM ACCOUNT",
@@ -32,6 +38,7 @@ public class Persistent implements Repository {
     }
   }
 
+  @Override
   public Account findById(Integer id) {
     try {
       List<Account> accounts = jdbcTemplate.query(
@@ -58,6 +65,7 @@ public class Persistent implements Repository {
     }
   }
 
+  @Override
   public Boolean deleteById(Integer id) {
     try {
       return jdbcTemplate.update(
@@ -68,19 +76,19 @@ public class Persistent implements Repository {
     }
   }
 
-  // Add account input for cross input validation when only one provided
-  public Boolean update(Account account) {
+  @Override
+  public Boolean update(Update account) {
     try {
-      return jdbcTemplate.update("UPDATE ACCOUNT SET LOGIN = ?, PASSWORD = ?, EMAIL = ?", account.login,
-          account.password, account.email) > 0;
+      return jdbcTemplate.update("UPDATE ACCOUNT SET LOGIN = ?, PASSWORD = ?, EMAIL = ? WHERE ID = ?", account.getLogin(),
+          account.getPassword(), account.getEmail(), account.getId()) > 0;
     } catch (Exception e) {
       log.error(EXCEPTION_MESSAGE, e);
       return false;
     }
   }
 
-  // Add account input without id
-  public Integer save(Account account) {
+  @Override
+  public Integer save(Create account) {
     String statement = "INSERT INTO ACCOUNT(LOGIN, PASSWORD, EMAIL, PRIVILEGE) VALUES(?, ?, ?, ?)";
     KeyHolder keyHolder = new GeneratedKeyHolder();
     try {
@@ -92,7 +100,8 @@ public class Persistent implements Repository {
         prepState.setObject(4, account.getPrivilege());
         return prepState;
       }, keyHolder);
-      return keyHolder.getKey().intValue();
+      Number getKey = keyHolder.getKey();
+      return getKey != null ? getKey.intValue() : null;
     } catch (Exception e) {
       log.error(EXCEPTION_MESSAGE, e);
       return null;

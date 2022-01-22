@@ -2,6 +2,9 @@ package com.pk.account;
 
 import java.util.List;
 
+import com.pk.account.request.Create;
+import com.pk.account.request.Update;
+
 public interface Repository {
 
   List<Account> getAll();
@@ -10,7 +13,7 @@ public interface Repository {
 
   Boolean deleteById(Integer id);
 
-  Boolean update(Account account);
+  Boolean update(Update account);
 
-  Integer save(Account account);
+  Integer save(Create account);
 }

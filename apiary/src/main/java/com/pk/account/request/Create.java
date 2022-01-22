@@ -1,17 +1,16 @@
-package com.pk.account;
+package com.pk.account.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.pk.account.Privilege;
 
-@Data
-@AllArgsConstructor
-public class Account {
-  @NotNull
-  Integer id;
+import lombok.Value;
+
+@Value
+public class Create {
+
   @NotNull
   @NotBlank
   String login;
@@ -24,4 +23,5 @@ public class Account {
   String email;
   @NotNull
   Privilege privilege;
+
 }
