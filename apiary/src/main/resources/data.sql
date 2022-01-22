@@ -8,6 +8,7 @@ INSERT INTO APIARY (INFORMATION) VALUES ('This one is only for information');
 INSERT INTO APIARY (LOCALIZATION) VALUES ('Lubzina');
 INSERT INTO APIARY (LOCALIZATION) VALUES ('Place');
 INSERT INTO "EVENT" (ID_apiary, Time_start, note) VALUES (1, CURRENT_TIMESTAMP,  'There was event');
+INSERT INTO "EVENT" (ID_apiary, Time_start, note) VALUES (2, CURRENT_TIMESTAMP,  'Apiary under attack!');
 INSERT INTO "EVENT" (ID_apiary, Time_start, note) VALUES (3, CURRENT_TIMESTAMP,  'Bear attacked!');
 INSERT INTO ACCOUNT_APIARY (ID_account, ID_apiary) SELECT ID, 1 FROM ACCOUNT WHERE LOGIN = 'admin';
 INSERT INTO ACCOUNT_APIARY (ID_account, ID_apiary) SELECT ID, 2 FROM ACCOUNT WHERE LOGIN = 'admin';

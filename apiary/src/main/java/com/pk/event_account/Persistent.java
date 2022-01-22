@@ -10,9 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class Persistent implements Repository {
 
-  /**
-   *
-   */
   private static final String NO_EVENT_ACCOUNTS_FOUND = "No event accounts found";
   private static final String EXCEPTION_MESSAGE = "Exception in event account persistent";
   private JdbcTemplate jdbcTemplate;
