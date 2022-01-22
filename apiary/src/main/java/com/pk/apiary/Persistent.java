@@ -30,7 +30,7 @@ public class Persistent implements Repository {
               rs.getString(2),
               rs.getString(3)));
     } catch (Exception e) {
-      log.error("Exception in persistent", e);
+      log.error(EXCEPTION_MESSAGE, e);
       return Collections.emptyList();
     }
   }
@@ -76,7 +76,8 @@ public class Persistent implements Repository {
     try {
       return jdbcTemplate.update("UPDATE APIARY SET LOCALIZATION = ?, INFORMATION = ? WHERE ID = ?",
           apiary.getLocalization(),
-          apiary.getInformation(), apiary.getId()) > 0;
+          apiary.getInformation(),
+          apiary.getId()) > 0;
     } catch (Exception e) {
       log.error(EXCEPTION_MESSAGE, e);
       return false;

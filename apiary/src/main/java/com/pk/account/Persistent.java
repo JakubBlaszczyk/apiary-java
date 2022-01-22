@@ -33,7 +33,7 @@ public class Persistent implements Repository {
               rs.getString(4),
               Privilege.stringToPrivilege(rs.getString(5))));
     } catch (Exception e) {
-      log.error("Exception in persistent", e);
+      log.error(EXCEPTION_MESSAGE, e);
       return Collections.emptyList();
     }
   }
@@ -79,8 +79,11 @@ public class Persistent implements Repository {
   @Override
   public Boolean update(Update account) {
     try {
-      return jdbcTemplate.update("UPDATE ACCOUNT SET LOGIN = ?, PASSWORD = ?, EMAIL = ? WHERE ID = ?", account.getLogin(),
-          account.getPassword(), account.getEmail(), account.getId()) > 0;
+      return jdbcTemplate.update("UPDATE ACCOUNT SET LOGIN = ?, PASSWORD = ?, EMAIL = ? WHERE ID = ?",
+          account.getLogin(),
+          account.getPassword(),
+          account.getEmail(),
+          account.getId()) > 0;
     } catch (Exception e) {
       log.error(EXCEPTION_MESSAGE, e);
       return false;
