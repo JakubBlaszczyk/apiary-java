@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.pk.account.Account;
+import com.pk.account.Privilege;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,7 +30,7 @@ public class CustomAccountDetails implements UserDetails {
         account.getLogin(),
         account.getPassword(),
         account.getEmail(),
-        new SimpleGrantedAuthority(account.getPrivilege().toString()));
+        new SimpleGrantedAuthority(Privilege.privilegeToString(account.getPrivilege())));
   }
 
   @Override

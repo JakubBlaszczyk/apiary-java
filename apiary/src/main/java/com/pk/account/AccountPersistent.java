@@ -54,7 +54,7 @@ public class AccountPersistent implements AccountRepository {
           login);
 
       if (accounts.isEmpty()) {
-        log.error("No accounts found");
+        log.warn("No accounts found");
         return null;
       } else if (accounts.size() > 1) {
         log.error("Found more than one account");
@@ -129,7 +129,7 @@ public class AccountPersistent implements AccountRepository {
         prepState.setString(1, account.getLogin());
         prepState.setString(2, account.getPassword());
         prepState.setString(3, account.getEmail());
-        prepState.setObject(4, account.getPrivilege());
+        prepState.setString(4, Privilege.privilegeToString(account.getPrivilege()));
         return prepState;
       }, keyHolder);
       Number getKey = keyHolder.getKey();

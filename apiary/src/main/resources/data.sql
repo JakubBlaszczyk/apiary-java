@@ -1,7 +1,7 @@
 INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE)
-VALUES ('admin', 'admin', 'admin@admin.com', 'admin');
+VALUES ('admin', '$2a$10$OvdSbEwvFfpffmybNgjkFOPwAZkgllUjFGLwx.GZRC6HGtP5w7FEK', 'admin@admin.com', 'ADMIN');
 INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE)
-VALUES ('user1', 'user1', 'user1@user1.com', 'worker');
+VALUES ('user1', '$2a$10$udmudsA0mqBS57KNrntMGescvG4P.qB2f834rbX101bDuzXofX/wS', 'user1@user1.com', 'worker');
 INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE)
 VALUES ('user2', 'user2', 'user2@user2.com', 'beekeeper');
 INSERT INTO ACCOUNT (LOGIN, PASSWORD, EMAIL, PRIVILEGE)

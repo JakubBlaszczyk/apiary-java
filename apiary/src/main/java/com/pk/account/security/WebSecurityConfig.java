@@ -1,13 +1,9 @@
 package com.pk.account.security;
 
-import javax.sql.DataSource;
-
-import com.pk.account.AccountPersistent;
 import com.pk.account.AccountService;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,12 +19,12 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private DataSource dataSource;
+  private AccountService accountService;
 
   @Bean
   @Override
   public UserDetailsService userDetailsService() {
-    return new CustomAccountDetailsService(new AccountService(new AccountPersistent(new JdbcTemplate(dataSource))));
+    return new CustomAccountDetailsService(accountService);
   }
 
   @Bean
@@ -52,11 +48,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable();
-    http.authorizeRequests().antMatchers("/").permitAll()
+    http
+        .csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/").permitAll()
         .antMatchers("/register").permitAll()
+        .antMatchers("/account").hasAnyAuthority("ADMIN")
+        //.antMatchers("/account").authenticated()
         .anyRequest().authenticated()
-        .and().formLogin().loginPage("/login").usernameParameter("login").defaultSuccessUrl("/index").permitAll()
-        .and().logout().logoutSuccessUrl("/").permitAll();
+        .and().formLogin().permitAll()
+        .and().logout().permitAll();
   }
 }

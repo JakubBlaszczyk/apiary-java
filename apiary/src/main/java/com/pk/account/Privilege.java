@@ -19,4 +19,17 @@ public enum Privilege {
         return WORKER;
     }
   }
+
+  public static String privilegeToString(Privilege privilege) {
+    switch (privilege) {
+      case WORKER:
+        return  "WORKER";
+      case BEEKEEPER:
+        return "BEEKEEPER";
+      case ADMIN:
+        return "ADMIN";
+        default:
+        return "WORKER";
+    }
+  }
 }

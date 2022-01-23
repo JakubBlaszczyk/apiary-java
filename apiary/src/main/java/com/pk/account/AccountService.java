@@ -56,8 +56,13 @@ public class AccountService {
   }
 
   public Integer save(CreateAccount account) {
+    if (accountRepository.findByLogin(account.getLogin()) != null) {
+      log.warn("Account already taken");
+      return -1;
+    }
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     account.setPassword(encoder.encode(account.getPassword()));
+    log.info("Account registered");
     return accountRepository.save(account);
   }
 }
