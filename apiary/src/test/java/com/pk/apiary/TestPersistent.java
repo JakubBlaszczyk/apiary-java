@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.pk.apiary.request.Create;
+import com.pk.apiary.request.ApiaryCreate;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +24,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 public class TestPersistent {
   private DataSource dataSource;
-  private Repository apiaryRepository;
+  private ApiaryRepository apiaryRepository;
 
   @BeforeEach
   public void initialization() {
@@ -33,7 +33,7 @@ public class TestPersistent {
         .addScripts("schema.sql", "data.sql")
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
-    this.apiaryRepository = new Persistent(jdbcTemplate);
+    this.apiaryRepository = new ApiaryPersistent(jdbcTemplate);
   }
 
   @AfterEach
@@ -64,14 +64,14 @@ public class TestPersistent {
   @Order(2)
   public void testSave() {
     assertEquals(this.apiaryRepository.getAll().size() + 1, this.apiaryRepository
-        .save(new Create("test", "test")));
+        .save(new ApiaryCreate("test", "test")));
   }
 
   @Test
   @Order(3)
   public void testUpdate() {
     assertTrue(this.apiaryRepository.update(new Apiary(2, "updated", "updated")));
-    assertEquals("updated", this.apiaryRepository.findById(3).getInformation());
+    assertEquals("updated", this.apiaryRepository.findById(2).getInformation());
   }
 
   @Test

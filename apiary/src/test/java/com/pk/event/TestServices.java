@@ -14,8 +14,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.pk.event.request.Create;
-import com.pk.event.request.Update;
+import com.pk.event.request.EventCreate;
+import com.pk.event.request.EventUpdate;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 public class TestServices {
   private DataSource dataSource;
-  private Service eventService;
+  private EventService eventService;
 
   @BeforeEach
   public void initialization() {
@@ -36,8 +36,8 @@ public class TestServices {
         .addScripts("schema.sql", "data.sql")
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
-    Repository eventRepository = new Persistent(jdbcTemplate);
-    this.eventService = new Service(eventRepository);
+    EventRepository eventRepository = new EventPersistent(jdbcTemplate);
+    this.eventService = new EventService(eventRepository);
   }
 
   @AfterEach
@@ -68,7 +68,7 @@ public class TestServices {
   @Order(2)
   public void testSave() {
     assertEquals(this.eventService.getAll().size() + 1, this.eventService
-        .save(new Create(2, Timestamp.valueOf(LocalDateTime.now()), null, "test")));
+        .save(new EventCreate(2, Timestamp.valueOf(LocalDateTime.now()), null, "test")));
   }
 
   @Test
@@ -78,7 +78,7 @@ public class TestServices {
     Timestamp now = Timestamp.valueOf(LocalDateTime.now());
     now.setNanos(0);
     Event checker = this.eventService.findById(INDEX);
-    assertTrue(this.eventService.update(new Update(INDEX, null, now, null, null)));
+    assertTrue(this.eventService.update(new EventUpdate(INDEX, null, now, null, null)));
     assertEquals(now, this.eventService.findById(INDEX).getStart());
     assertEquals(checker.getIdApiary(), this.eventService.findById(INDEX).getIdApiary());
   }

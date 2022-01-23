@@ -19,7 +19,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 public class TestServices {
   private DataSource dataSource;
-  private Service apiaryAccountService;
+  private ApiaryAccountService apiaryAccountService;
 
   @BeforeEach
   public void initialization() {
@@ -28,10 +28,10 @@ public class TestServices {
         .addScripts("schema.sql", "data.sql")
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
-    Repository eventAccountRepository = new Persistent(jdbcTemplate);
-    this.apiaryAccountService = new Service(eventAccountRepository,
-        new com.pk.apiary.Service(new com.pk.apiary.Persistent(jdbcTemplate)),
-        new com.pk.account.Service(new com.pk.account.Persistent(jdbcTemplate)));
+    ApiaryAccountRepository eventAccountRepository = new ApiaryAccountPersistent(jdbcTemplate);
+    this.apiaryAccountService = new ApiaryAccountService(eventAccountRepository,
+        new com.pk.apiary.ApiaryService(new com.pk.apiary.ApiaryPersistent(jdbcTemplate)),
+        new com.pk.account.AccountService(new com.pk.account.AccountPersistent(jdbcTemplate)));
   }
 
   @AfterEach

@@ -12,8 +12,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.pk.account.request.Create;
-import com.pk.account.request.Update;
+import com.pk.account.request.CreateAccount;
+import com.pk.account.request.UpdateAccount;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 public class TestPersistent {
   private DataSource dataSource;
-  private Repository accountRepository;
+  private AccountRepository accountRepository;
 
   @BeforeEach
   public void initialization() {
@@ -34,7 +34,7 @@ public class TestPersistent {
         .addScripts("schema.sql", "data.sql")
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
-    this.accountRepository = new Persistent(jdbcTemplate);
+    this.accountRepository = new AccountPersistent(jdbcTemplate);
   }
 
   @AfterEach
@@ -73,13 +73,13 @@ public class TestPersistent {
   @Order(3)
   public void testSave() {
     assertEquals(this.accountRepository.getAll().size() + 1, this.accountRepository
-        .save(new Create("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
+        .save(new CreateAccount("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
   }
 
   @Test
   @Order(4)
   public void testUpdate() {
-    assertTrue(this.accountRepository.update(new Update(3, "updated", "updated", "updated@updated.com")));
+    assertTrue(this.accountRepository.update(new UpdateAccount(3, "updated", "updated", "updated@updated.com")));
     assertEquals("updated", this.accountRepository.findById(3).getLogin());
   }
 

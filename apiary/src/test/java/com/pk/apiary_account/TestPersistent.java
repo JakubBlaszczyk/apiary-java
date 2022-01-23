@@ -19,7 +19,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 public class TestPersistent {
   private DataSource dataSource;
-  private Repository apiaryAccountRepository;
+  private ApiaryAccountRepository apiaryAccountRepository;
 
   @BeforeEach
   public void initialization() {
@@ -28,7 +28,7 @@ public class TestPersistent {
         .addScripts("schema.sql", "data.sql")
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
-    this.apiaryAccountRepository = new Persistent(jdbcTemplate);
+    this.apiaryAccountRepository = new ApiaryAccountPersistent(jdbcTemplate);
   }
 
   @AfterEach

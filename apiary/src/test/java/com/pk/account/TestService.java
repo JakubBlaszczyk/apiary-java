@@ -12,8 +12,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.pk.account.request.Create;
-import com.pk.account.request.Update;
+import com.pk.account.request.CreateAccount;
+import com.pk.account.request.UpdateAccount;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 public class TestService {
   private DataSource dataSource;
-  private Service accountService;
+  private AccountService accountService;
 
   @BeforeEach
   public void initialization() {
@@ -34,8 +34,8 @@ public class TestService {
         .addScripts("schema.sql", "data.sql")
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
-    com.pk.account.Repository accountRepository = new Persistent(jdbcTemplate);
-    this.accountService = new Service(accountRepository);
+    com.pk.account.AccountRepository accountRepository = new AccountPersistent(jdbcTemplate);
+    this.accountService = new AccountService(accountRepository);
   }
 
   @AfterEach
@@ -74,14 +74,14 @@ public class TestService {
   @Order(3)
   public void testSave() {
     assertEquals(this.accountService.getAll().size() + 1, this.accountService
-        .save(new Create("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
+        .save(new CreateAccount("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
   }
 
   @Test
   @Order(4)
   public void testUpdate() {
     Account checker = this.accountService.findById(3);
-    assertTrue(this.accountService.update(new Update(3, "updated", null, null)));
+    assertTrue(this.accountService.update(new UpdateAccount(3, "updated", null, null)));
     assertEquals("updated", this.accountService.findById(3).getLogin());
     assertEquals(checker.getEmail(), this.accountService.findById(3).getEmail());
   }

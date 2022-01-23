@@ -14,8 +14,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.pk.event.request.Create;
-import com.pk.event.request.Update;
+import com.pk.event.request.EventCreate;
+import com.pk.event.request.EventUpdate;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 public class TestPersistent {
   private DataSource dataSource;
-  private Repository eventRepository;
+  private EventRepository eventRepository;
 
   @BeforeEach
   public void initialization() {
@@ -36,7 +36,7 @@ public class TestPersistent {
         .addScripts("schema.sql", "data.sql")
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
-    this.eventRepository = new Persistent(jdbcTemplate);
+    this.eventRepository = new EventPersistent(jdbcTemplate);
   }
 
   @AfterEach
@@ -67,13 +67,13 @@ public class TestPersistent {
   @Order(2)
   public void testSave() {
     assertEquals(this.eventRepository.getAll().size() + 1, this.eventRepository
-        .save(new Create(1, Timestamp.valueOf(LocalDateTime.now()), null, "Some note")));
+        .save(new EventCreate(1, Timestamp.valueOf(LocalDateTime.now()), null, "Some note")));
   }
 
   @Test
   @Order(3)
   public void testUpdate() {
-    assertTrue(this.eventRepository.update(new Update(1, 2, null, null, null)));
+    assertTrue(this.eventRepository.update(new EventUpdate(1, 2, null, null, null)));
     assertEquals(2, this.eventRepository.findById(1).getIdApiary());
   }
 
