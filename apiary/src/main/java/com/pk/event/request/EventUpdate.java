@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Update {
+public class EventUpdate {
   @NotNull
   Integer id;
   Integer idApiary;

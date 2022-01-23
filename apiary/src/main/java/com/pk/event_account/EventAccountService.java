@@ -9,9 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Slf4j
-public class Service {
-  private Repository eventAccountRepository;
-  private com.pk.event.Service eventService;
+public class EventAccountService {
+  private EventAccountRepository eventAccountRepository;
+  private com.pk.event.EventService eventService;
   private AccountService accountService;
 
   public List<EventAccount> getAll() {

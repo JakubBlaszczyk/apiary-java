@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Value;
 
 @Value
-public class Create {
+public class EventCreate {
 
   @NotNull
   Integer idApiary;

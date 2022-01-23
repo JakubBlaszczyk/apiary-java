@@ -2,7 +2,7 @@ package com.pk.event_account;
 
 import java.util.List;
 
-public interface Repository {
+public interface EventAccountRepository {
 
   List<EventAccount> getAll();
 

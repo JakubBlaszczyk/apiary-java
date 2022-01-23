@@ -2,16 +2,16 @@ package com.pk.event;
 
 import java.util.List;
 
-import com.pk.event.request.Create;
-import com.pk.event.request.Update;
+import com.pk.event.request.EventCreate;
+import com.pk.event.request.EventUpdate;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Slf4j
-public class Service {
-  private Repository eventRepository;
+public class EventService {
+  private EventRepository eventRepository;
 
   public List<Event> getAll() {
     return eventRepository.getAll();
@@ -25,7 +25,7 @@ public class Service {
     return eventRepository.deleteById(id);
   }
 
-  public Boolean update(Update event) {
+  public Boolean update(EventUpdate event) {
     Event temp = eventRepository.findById(event.getId());
     if (temp == null) {
       log.warn("Account doesn't exist");
@@ -52,7 +52,7 @@ public class Service {
     return eventRepository.update(event);
   }
 
-  public Integer save(Create event) {
+  public Integer save(EventCreate event) {
     // I have to check if such a apiary exists, if not then return false and log
     // message
     return eventRepository.save(event);

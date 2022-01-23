@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 
-import com.pk.event.request.Create;
-import com.pk.event.request.Update;
+import com.pk.event.request.EventCreate;
+import com.pk.event.request.EventUpdate;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 @Repository
-public class Persistent implements Repository {
+public class EventPersistent implements EventRepository {
 
   private static final String EXCEPTION_MESSAGE = "Exception in event persistent";
   private JdbcTemplate jdbcTemplate;
@@ -80,7 +80,7 @@ public class Persistent implements Repository {
   }
 
   @Override
-  public Boolean update(Update event) {
+  public Boolean update(EventUpdate event) {
     try {
       return jdbcTemplate.update("UPDATE EVENT SET ID_APIARY = ?, TIME_START = ?, TIME_END = ?, NOTE = ? WHERE ID = ?",
           event.getIdApiary(),
@@ -95,7 +95,7 @@ public class Persistent implements Repository {
   }
 
   @Override
-  public Integer save(Create event) {
+  public Integer save(EventCreate event) {
     String statement = "INSERT INTO EVENT(ID_APIARY, TIME_START, TIME_END, NOTE) VALUES(?, ?, ?, ?)";
     KeyHolder keyHolder = new GeneratedKeyHolder();
     try {
