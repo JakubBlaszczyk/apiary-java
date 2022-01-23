@@ -34,7 +34,7 @@ public class EventAccountPersistent implements EventAccountRepository {
   public List<EventAccount> findByIdEvent(Integer id) {
     try {
       List<EventAccount> events = jdbcTemplate.query(
-          "SELECT * FROM EVENT_ACCOUNT WHERE ID_EVENT = ?",
+        "SELECT * FROM EVENT_ACCOUNT WHERE ID_EVENT = ?",
           (rs, rowNum) -> new EventAccount(
               rs.getInt(1),
               rs.getInt(2)),
@@ -55,7 +55,7 @@ public class EventAccountPersistent implements EventAccountRepository {
   public List<EventAccount> findByIdAccount(Integer id) {
     try {
       List<EventAccount> events = jdbcTemplate.query(
-          "SELECT * FROM EVENT_ACCOUNT WHERE ID_ACCOUNT = ?",
+        "SELECT * FROM EVENT_ACCOUNT WHERE ID_ACCOUNT = ?",
           (rs, rowNum) -> new EventAccount(
               rs.getInt(1),
               rs.getInt(2)),
@@ -76,7 +76,7 @@ public class EventAccountPersistent implements EventAccountRepository {
   public EventAccount findByIds(Integer idEvent, Integer idAccount) {
     try {
       List<EventAccount> events = jdbcTemplate.query(
-          "SELECT * FROM EVENT_ACCOUNT WHERE ID_EVENT = ? AND ID_ACCOUNT = ?",
+        "SELECT * FROM EVENT_ACCOUNT WHERE ID_EVENT = ? AND ID_ACCOUNT = ?",
           (rs, rowNum) -> new EventAccount(
               rs.getInt(1),
               rs.getInt(2)),
@@ -100,7 +100,7 @@ public class EventAccountPersistent implements EventAccountRepository {
   public Boolean deleteById(Integer idEvent, Integer idAccount) {
     try {
       return jdbcTemplate.update(
-          "DELETE FROM EVENT_ACCOUNT WHERE ID_EVENT = ? AND ID_ACCOUNT = ?", idEvent, idAccount) > 0;
+        "DELETE FROM EVENT_ACCOUNT WHERE ID_EVENT = ? AND ID_ACCOUNT = ?", idEvent, idAccount) > 0;
     } catch (Exception e) {
       log.error(EXCEPTION_MESSAGE, e);
       return false;

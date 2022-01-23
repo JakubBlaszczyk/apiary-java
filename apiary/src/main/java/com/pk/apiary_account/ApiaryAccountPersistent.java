@@ -34,7 +34,7 @@ public class ApiaryAccountPersistent implements ApiaryAccountRepository {
   public List<ApiaryAccount> findByIdApiary(Integer id) {
     try {
       List<ApiaryAccount> events = jdbcTemplate.query(
-          "SELECT * FROM APIARY_ACCOUNT WHERE ID_APIARY = ?",
+        "SELECT * FROM APIARY_ACCOUNT WHERE ID_APIARY = ?",
           (rs, rowNum) -> new ApiaryAccount(
               rs.getInt(1),
               rs.getInt(2)),
@@ -55,7 +55,7 @@ public class ApiaryAccountPersistent implements ApiaryAccountRepository {
   public List<ApiaryAccount> findByIdAccount(Integer id) {
     try {
       List<ApiaryAccount> events = jdbcTemplate.query(
-          "SELECT * FROM APIARY_ACCOUNT WHERE ID_ACCOUNT = ?",
+        "SELECT * FROM APIARY_ACCOUNT WHERE ID_ACCOUNT = ?",
           (rs, rowNum) -> new ApiaryAccount(
               rs.getInt(1),
               rs.getInt(2)),
@@ -76,7 +76,7 @@ public class ApiaryAccountPersistent implements ApiaryAccountRepository {
   public ApiaryAccount findByIds(Integer idApiary, Integer idAccount) {
     try {
       List<ApiaryAccount> events = jdbcTemplate.query(
-          "SELECT * FROM APIARY_ACCOUNT WHERE ID_APIARY = ? AND ID_ACCOUNT = ?",
+        "SELECT * FROM APIARY_ACCOUNT WHERE ID_APIARY = ? AND ID_ACCOUNT = ?",
           (rs, rowNum) -> new ApiaryAccount(
               rs.getInt(1),
               rs.getInt(2)),
@@ -100,7 +100,7 @@ public class ApiaryAccountPersistent implements ApiaryAccountRepository {
   public Boolean deleteById(Integer idApiary, Integer idAccount) {
     try {
       return jdbcTemplate.update(
-          "DELETE FROM APIARY_ACCOUNT WHERE ID_APIARY = ? AND ID_ACCOUNT = ?", idApiary, idAccount) > 0;
+        "DELETE FROM APIARY_ACCOUNT WHERE ID_APIARY = ? AND ID_ACCOUNT = ?", idApiary, idAccount) > 0;
     } catch (Exception e) {
       log.error(EXCEPTION_MESSAGE, e);
       return false;

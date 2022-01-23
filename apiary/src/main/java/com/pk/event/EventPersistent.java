@@ -45,7 +45,7 @@ public class EventPersistent implements EventRepository {
   public Event findById(Integer id) {
     try {
       List<Event> events = jdbcTemplate.query(
-          "SELECT * FROM EVENT WHERE ID = ?",
+        "SELECT * FROM EVENT WHERE ID = ?",
           (rs, rowNum) -> new Event(
               rs.getInt(1),
               rs.getInt(2),

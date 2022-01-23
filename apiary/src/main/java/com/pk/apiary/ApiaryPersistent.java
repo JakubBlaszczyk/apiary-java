@@ -41,7 +41,7 @@ public class ApiaryPersistent implements ApiaryRepository {
   public Apiary findById(Integer id) {
     try {
       List<Apiary> apiaries = jdbcTemplate.query(
-          "SELECT * FROM APIARY WHERE ID = ?",
+        "SELECT * FROM APIARY WHERE ID = ?",
           (rs, rowNum) -> new Apiary(
               rs.getInt(1),
               rs.getString(2),
@@ -66,7 +66,7 @@ public class ApiaryPersistent implements ApiaryRepository {
   public Boolean deleteById(Integer id) {
     try {
       return jdbcTemplate.update(
-          "DELETE FROM APIARY WHERE ID = ?", id) > 0;
+        "DELETE FROM APIARY WHERE ID = ?", id) > 0;
     } catch (Exception e) {
       log.error(EXCEPTION_MESSAGE, e);
       return false;

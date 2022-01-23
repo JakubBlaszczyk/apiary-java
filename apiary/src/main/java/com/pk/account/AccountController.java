@@ -6,6 +6,7 @@ import com.pk.account.request.CreateAccount;
 import com.pk.account.request.UpdateAccount;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,9 +31,15 @@ public class AccountController {
     return accountService.save(account);
   }
 
-  @GetMapping("/register")
-  public @ResponseBody String getRegisterPage() {
-    return "register";
+  @GetMapping("/accounts")
+  public String getRegisterPage(Model model) {
+    model.addAttribute("accounts", this.accountService.getAll());
+    return "Users";
+  }
+
+  @GetMapping("/account")
+  public String getAccountPage() {
+    return "ManageAccount";
   }
 
   @PutMapping("/register")
@@ -40,12 +47,12 @@ public class AccountController {
     return accountService.update(account);
   }
 
-  @GetMapping("/account")
+  @GetMapping("/account/list")
   public @ResponseBody List<Account> getAllAcunts() {
     return accountService.getAll();
   }
 
-  @GetMapping("/account/{username}")
+  @GetMapping("/account/list/{username}")
   public @ResponseBody Account getAccounts(@PathVariable String username) {
     return accountService.findByLogin(username);
   }
