@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Update {
+public class UpdateAccount {
   @NotNull
   Integer id;
   String login;

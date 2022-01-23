@@ -5,6 +5,7 @@ import java.util.List;
 import com.pk.account.request.CreateAccount;
 import com.pk.account.request.UpdateAccount;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-@org.springframework.stereotype.Controller
+@Controller
 public class AccountController {
 
   private AccountService accountService;

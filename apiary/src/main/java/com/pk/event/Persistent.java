@@ -12,12 +12,14 @@ import com.pk.event.request.Update;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
+@Repository
 public class Persistent implements Repository {
 
   private static final String EXCEPTION_MESSAGE = "Exception in event persistent";

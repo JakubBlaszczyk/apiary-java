@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.pk.apiary.request.ApiaryCreate;
 
+import org.springframework.stereotype.Service;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@org.springframework.stereotype.Service
 @AllArgsConstructor
 @Slf4j
+@Service
 public class ApiaryService {
   private ApiaryRepository apiaryRepository;
 

@@ -3,11 +3,14 @@ package com.pk.event_account;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
+@Repository
 public class Persistent implements Repository {
 
   private static final String NO_EVENT_ACCOUNTS_FOUND = "No event accounts found";

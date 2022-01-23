@@ -2,10 +2,12 @@ package com.pk.apiary_account;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@org.springframework.stereotype.Service
+@Service
 @AllArgsConstructor
 @Slf4j
 public class ApiaryAccountService {

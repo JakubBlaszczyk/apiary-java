@@ -6,10 +6,12 @@ import javax.validation.constraints.NotNull;
 
 import com.pk.account.Privilege;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class Create {
+@AllArgsConstructor
+public class CreateAccount {
 
   @NotNull
   @NotBlank

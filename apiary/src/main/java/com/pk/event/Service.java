@@ -8,7 +8,6 @@ import com.pk.event.request.Update;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@org.springframework.stereotype.Service
 @AllArgsConstructor
 @Slf4j
 public class Service {

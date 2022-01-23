@@ -6,12 +6,13 @@ import com.pk.account.request.CreateAccount;
 import com.pk.account.request.UpdateAccount;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@org.springframework.stereotype.Service
 @AllArgsConstructor
+@Service
 @Slf4j
 public class AccountService {
   private AccountRepository accountRepository;

@@ -2,16 +2,17 @@ package com.pk.event_account;
 
 import java.util.List;
 
+import com.pk.account.AccountService;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@org.springframework.stereotype.Service
 @AllArgsConstructor
 @Slf4j
 public class Service {
   private Repository eventAccountRepository;
   private com.pk.event.Service eventService;
-  private com.pk.account.Service accountService;
+  private AccountService accountService;
 
   public List<EventAccount> getAll() {
     return eventAccountRepository.getAll();

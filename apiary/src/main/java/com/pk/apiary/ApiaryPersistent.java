@@ -10,12 +10,14 @@ import com.pk.apiary.request.ApiaryCreate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
+@Repository
 public class ApiaryPersistent implements ApiaryRepository {
 
   private static final String EXCEPTION_MESSAGE = "Exception in apiary persistent";
