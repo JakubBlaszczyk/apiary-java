@@ -14,6 +14,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.pk.apiary.ApiaryPersistent;
+import com.pk.apiary.ApiaryService;
 import com.pk.event.request.EventCreate;
 import com.pk.event.request.EventUpdate;
 
@@ -37,7 +39,7 @@ public class TestServices {
         .build();
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
     EventRepository eventRepository = new EventPersistent(jdbcTemplate);
-    this.eventService = new EventService(eventRepository);
+    this.eventService = new EventService(eventRepository, new ApiaryService(new ApiaryPersistent(jdbcTemplate)));
   }
 
   @AfterEach
@@ -68,7 +70,7 @@ public class TestServices {
   @Order(2)
   public void testSave() {
     assertEquals(this.eventService.getAll().size() + 1, this.eventService
-        .save(new EventCreate(2, Timestamp.valueOf(LocalDateTime.now()), null, "test")));
+        .save(new EventCreate(2, Timestamp.valueOf(LocalDateTime.now()).toString(), null, "test")));
   }
 
   @Test

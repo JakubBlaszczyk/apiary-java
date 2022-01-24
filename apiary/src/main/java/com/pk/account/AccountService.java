@@ -50,6 +50,9 @@ public class AccountService {
 
     if (account.getPassword() == null || account.getPassword().isBlank()) {
       account.setPassword(temp.getPassword());
+    } else {
+      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+      account.setPassword(encoder.encode(account.getPassword()));
     }
 
     return accountRepository.update(account);
@@ -62,6 +65,7 @@ public class AccountService {
     }
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     account.setPassword(encoder.encode(account.getPassword()));
+    account.setPrivilege(Privilege.privilegeToString(Privilege.stringToPrivilege(account.getPrivilege())));
     log.info("Account registered");
     return accountRepository.save(account);
   }

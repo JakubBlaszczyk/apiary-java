@@ -4,8 +4,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.pk.account.Privilege;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -24,6 +22,6 @@ public class CreateAccount {
   @Email
   String email;
   @NotNull
-  Privilege privilege;
+  String privilege;
 
 }

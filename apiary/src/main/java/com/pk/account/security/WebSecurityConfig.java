@@ -51,13 +51,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http
         .csrf().disable()
         .authorizeRequests()
-        .antMatchers("/").permitAll()
         .antMatchers("/register").permitAll()
         .antMatchers("/css/**", "/images/**", "/js/**").permitAll()
         .antMatchers("/account").hasAnyAuthority("ADMIN")
         //.antMatchers("/account").authenticated()
         .anyRequest().authenticated()
-        .and().formLogin().permitAll()
+        .and().formLogin().loginPage("/login").defaultSuccessUrl("/account", true)
+        .permitAll()
         .and().logout().permitAll();
   }
 }

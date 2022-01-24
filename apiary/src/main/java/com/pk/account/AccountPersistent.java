@@ -129,7 +129,7 @@ public class AccountPersistent implements AccountRepository {
         prepState.setString(1, account.getLogin());
         prepState.setString(2, account.getPassword());
         prepState.setString(3, account.getEmail());
-        prepState.setString(4, Privilege.privilegeToString(account.getPrivilege()));
+        prepState.setString(4, account.getPrivilege());
         return prepState;
       }, keyHolder);
       Number getKey = keyHolder.getKey();

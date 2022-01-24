@@ -73,7 +73,7 @@ public class TestPersistent {
   @Order(3)
   public void testSave() {
     assertEquals(this.accountRepository.getAll().size() + 1, this.accountRepository
-        .save(new CreateAccount("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
+        .save(new CreateAccount("test", "test", "test@test.com", Privilege.privilegeToString(Privilege.stringToPrivilege("worker")))));
   }
 
   @Test

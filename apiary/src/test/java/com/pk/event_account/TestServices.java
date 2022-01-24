@@ -9,6 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Collections;
 import java.util.List;
 import javax.sql.DataSource;
+
+import com.pk.account.AccountPersistent;
+import com.pk.account.AccountService;
+import com.pk.apiary.ApiaryPersistent;
+import com.pk.apiary.ApiaryService;
+import com.pk.event.EventPersistent;
+import com.pk.event.EventService;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -30,8 +38,9 @@ public class TestServices {
     JdbcTemplate jdbcTemplate = new JdbcTemplate(this.dataSource);
     EventAccountRepository eventAccountRepository = new EventAccountPersistent(jdbcTemplate);
     this.eventAccountService = new EventAccountService(eventAccountRepository,
-        new com.pk.event.EventService(new com.pk.event.EventPersistent(jdbcTemplate)),
-        new com.pk.account.AccountService(new com.pk.account.AccountPersistent(jdbcTemplate)));
+        new EventService(new EventPersistent(jdbcTemplate),
+            new ApiaryService(new ApiaryPersistent(jdbcTemplate))),
+        new AccountService(new AccountPersistent(jdbcTemplate)));
   }
 
   @AfterEach

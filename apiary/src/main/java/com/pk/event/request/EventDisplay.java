@@ -7,8 +7,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class EventCreate {
-
+public class EventDisplay {
+  @NotNull
+  Integer id;
   @NotNull
   Integer idApiary;
   String start;

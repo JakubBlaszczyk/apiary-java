@@ -74,7 +74,7 @@ public class TestService {
   @Order(3)
   public void testSave() {
     assertEquals(this.accountService.getAll().size() + 1, this.accountService
-        .save(new CreateAccount("test", "test", "test@test.com", Privilege.stringToPrivilege("worker"))));
+        .save(new CreateAccount("test", "test", "test@test.com", Privilege.privilegeToString(Privilege.stringToPrivilege("worker")))));
   }
 
   @Test

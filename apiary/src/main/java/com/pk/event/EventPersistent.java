@@ -3,6 +3,7 @@ package com.pk.event;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class EventPersistent implements EventRepository {
   public Event findById(Integer id) {
     try {
       List<Event> events = jdbcTemplate.query(
-        "SELECT * FROM EVENT WHERE ID = ?",
+          "SELECT * FROM EVENT WHERE ID = ?",
           (rs, rowNum) -> new Event(
               rs.getInt(1),
               rs.getInt(2),
@@ -102,8 +103,8 @@ public class EventPersistent implements EventRepository {
       jdbcTemplate.update(connection -> {
         PreparedStatement prepState = connection.prepareStatement(statement, Statement.RETURN_GENERATED_KEYS);
         prepState.setInt(1, event.getIdApiary());
-        prepState.setTimestamp(2, event.getStart());
-        prepState.setTimestamp(3, event.getEnd());
+        prepState.setTimestamp(2, !event.getStart().isBlank() ? Timestamp.valueOf(LocalDateTime.parse(event.getStart() + "T00:00:00")) : null);
+        prepState.setTimestamp(3, !event.getEnd().isBlank() ? Timestamp.valueOf(LocalDateTime.parse(event.getEnd() + "T00:00:00")) : null);
         prepState.setString(4, event.getNote());
         return prepState;
       }, keyHolder);

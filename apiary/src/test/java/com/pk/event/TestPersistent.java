@@ -67,7 +67,7 @@ public class TestPersistent {
   @Order(2)
   public void testSave() {
     assertEquals(this.eventRepository.getAll().size() + 1, this.eventRepository
-        .save(new EventCreate(1, Timestamp.valueOf(LocalDateTime.now()), null, "Some note")));
+        .save(new EventCreate(1, Timestamp.valueOf(LocalDateTime.now()).toString(), null, "Some note")));
   }
 
   @Test

@@ -3,6 +3,7 @@ package com.pk.event;
 import java.util.List;
 
 import com.pk.event.request.EventCreate;
+import com.pk.event.request.EventDisplay;
 import com.pk.event.request.EventUpdate;
 
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,9 @@ public class EventController {
   }
 
   @PostMapping("/eventAdd")
-  public void addEvent(EventCreate eventCreate) {
+  public String addEvent(EventCreate eventCreate) {
     this.eventService.save(eventCreate);
+    return "AddEvent";
   }
 
   @PostMapping("/eventUpdate")
@@ -36,7 +38,7 @@ public class EventController {
   }
 
   @GetMapping("/event")
-  public @ResponseBody List<Event> getEvents() {
+  public @ResponseBody List<EventDisplay> getEvents() {
     return this.eventService.getAll();
   }
 
@@ -44,5 +46,10 @@ public class EventController {
   public String getEventHtml(Model model) {
     model.addAttribute("eventsData", this.eventService.getAll());
     return "Events";
+  }
+
+  @GetMapping("/eventAdd")
+  public String getEventAddHtml(Model model) {
+    return "AddEvent";
   }
 }

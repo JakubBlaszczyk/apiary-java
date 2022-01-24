@@ -5,6 +5,8 @@ import java.util.List;
 import com.pk.account.request.CreateAccount;
 import com.pk.account.request.UpdateAccount;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @Controller
+@Slf4j
 public class AccountController {
 
   private AccountService accountService;
@@ -26,9 +30,15 @@ public class AccountController {
     return "LogIn";
   }
 
+  @GetMapping("/register")
+  public String logInRedirect() {
+    return logIn();
+  }
+
   @PostMapping("/register")
-  public @ResponseBody Integer registerAccount(CreateAccount account) {
-    return accountService.save(account);
+  public String registerAccount(CreateAccount account) {
+    accountService.save(account);
+    return logIn();
   }
 
   @GetMapping("/accounts")
@@ -43,8 +53,11 @@ public class AccountController {
   }
 
   @PutMapping("/register")
-  public @ResponseBody Boolean updateAccount(UpdateAccount account) {
-    return accountService.update(account);
+  public String updateAccount(UpdateAccount account) {
+    account.setId(accountService.findByLogin(getCallersUsername()).getId());
+    log.info("{} {} {} {}", account.getId(), account.getLogin(), account.getEmail(), account.getPassword(), getCallersUsername());
+    accountService.update(account);
+    return "ManageAccount";
   }
 
   @GetMapping("/account/list")
@@ -55,5 +68,14 @@ public class AccountController {
   @GetMapping("/account/list/{username}")
   public @ResponseBody Account getAccounts(@PathVariable String username) {
     return accountService.findByLogin(username);
+  }
+
+  private String getCallersUsername() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (principal instanceof UserDetails) {
+      return ((UserDetails) principal).getUsername();
+    } else {
+      return principal.toString();
+    }
   }
 }
