@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.AllArgsConstructor;
@@ -52,7 +51,7 @@ public class AccountController {
     return "ManageAccount";
   }
 
-  @PutMapping("/register")
+  @PostMapping("/registerEdit")
   public String updateAccount(UpdateAccount account) {
     account.setId(accountService.findByLogin(getCallersUsername()).getId());
     log.info("{} {} {} {}", account.getId(), account.getLogin(), account.getEmail(), account.getPassword(), getCallersUsername());
